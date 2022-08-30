@@ -32,6 +32,7 @@ HEADER = {
 @app.route("/", methods=['POST', 'GET'])
 def index():
     if request.method == 'GET':
+        print('OK')
         return 'ok'
     body = request.json
     events = body["events"]
