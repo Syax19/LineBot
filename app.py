@@ -16,7 +16,7 @@ ALLOWED_EXTENSIONS = set(['pdf', 'png', 'jpg', 'jpeg', 'gif'])
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-line_bot_api = LineBotApi(config.get('line-bot', 'channel_access_token'))
+line_bot_api = LineBotApi(config.get('line-bot', 'channel_access_token'))  # Line提供的SDK
 handler = WebhookHandler(config.get('line-bot', 'channel_secret'))
 my_line_id = config.get('line-bot', 'my_line_id')
 end_point = config.get('line-bot', 'end_point')
@@ -32,7 +32,6 @@ HEADER = {
 @app.route("/", methods=['POST', 'GET'])
 def index():
     if request.method == 'GET':
-        print('OK')
         return 'ok'
     body = request.json
     events = body["events"]
@@ -226,12 +225,14 @@ def getImageMessage(originalContentUrl):
 
 
 def replyMessage(payload):
-    response = {}
+    response = requests.post("https://api.line.me/v2/bot/message/reply", data=json.dumps(payload), headers=HEADERS)
+    print(response.content)
     return 'OK'
 
 
 def pushMessage(payload):
-    response = {}
+    response = requests.post("https://api.line.me/v2/bot/message/push", data=json.dumps(payload), headers=HEADERS)
+    print(response.content)
     return 'OK'
 
 
