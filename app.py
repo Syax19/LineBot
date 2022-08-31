@@ -213,7 +213,28 @@ def getCarouselMessage(data):
 
 
 def getLocationConfirmMessage(title, latitude, longitude):
-    message = dict()
+    data = {'title': title, 'latitude': latitude, 'longtitude': longitude, 
+            'action': 'get_near'}
+    message = {
+            "type": "template",
+            "altText": "this is a confirm template",
+            "template": {
+                "type": "confirm",
+                "text": f"請確認是否搜尋 {title} 附近地點?",
+                "actions": [                 #  可搜尋Line的Action objects文件
+                    {
+                        "type": "postback",
+                        "label": "是",
+                        "text": json.dumps(data)
+                    },
+                    {
+                        "type": "message",
+                        "label": "否",
+                        "text": "否"
+                    }
+                    ]
+                }
+                }
     return message
 
 
