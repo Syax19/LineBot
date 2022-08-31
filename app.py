@@ -167,11 +167,44 @@ def sendTextMessageToMe():
 
 
 def getNameEmojiMessage():
+
     lookUpStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
     productId = "5ac21a8c040ab15980c9b43f"
-    name = ""
+    name = "Esther"
     message = dict()
+    message["type"] = "text"
+    message["text"] = "".join("$" for r in range(len(name)))
+    emoji_list = list()
+    for idx, nChar in name:
+        emoji_list.append(
+            {
+                "index": idx, 
+                "product_id": productId,
+                "emojiId": f"{lookUpStr.index(nChar)+1 :03}"
+
+            }
+            )
     return message
+
+"""
+Line emoji 格式; "text": $代表emoji放置的位子
+message = {
+            "type": "text",
+            "text": "$ LINE emoji $",
+            "emojis": [
+            {
+                "index": 0,
+                "productId": "5ac21a8c040ab15980c9b43f",
+                "emojiId": "001"
+            },
+            {
+                "index": 13,
+                "productId": "5ac1bfd5040ab15980c9b435",
+                "emojiId": "002"
+            }
+                ]
+            }   
+"""    
 
 
 def getCarouselMessage(data):
