@@ -175,7 +175,7 @@ def getNameEmojiMessage():
     message["type"] = "text"
     message["text"] = "".join("$" for r in range(len(name)))
     emoji_list = list()
-    for idx, nChar in name:
+    for idx, nChar in enumerate(name):
         emoji_list.append(
             {
                 "index": idx, 
