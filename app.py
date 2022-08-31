@@ -52,7 +52,7 @@ def index():
                     payload["messages"] = [getTaipei101ImageMessage(),
                                            getTaipei101LocationMessage(),
                                            getMRTVideoMessage()]
-                elif text == "quoda":
+                elif text == "quoda":  # 在line中輸入quoda會回傳總訊息使用量
                     payload["messages"] = [
                             {
                                 "type": "text",
@@ -237,7 +237,8 @@ def pushMessage(payload):
 
 
 def getTotalSentMessageCount():
-    response = {}
+    response = requests.get("https://api.line.me/v2/bot/message/quota/consumption", headers=HEADER)
+    print(response.json()['totalUsage'])
     return 0
 
 
