@@ -223,7 +223,18 @@ def getCallCarMessage(data):
 
 def getPlayStickerMessage():
     message = dict()
+    message["type"] = "sticker"
+    message["packageId"] = "1070"
+    message["stickerId"] = "17839"
     return message
+
+"""
+{
+  "type": "sticker",
+  "packageId": "446",
+  "stickerId": "1988"
+}
+"""
 
 
 def getTaipei101LocationMessage():
