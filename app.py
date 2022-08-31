@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+from email import header
 from flask import Flask, request, abort, render_template
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
@@ -7,7 +8,7 @@ import requests
 import json
 import configparser
 import os
-from urllib import parse
+from urllib import parse, response
 app = Flask(__name__, static_url_path='/static')
 UPLOAD_FOLDER = 'static'
 ALLOWED_EXTENSIONS = set(['pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -243,10 +244,12 @@ def getTotalSentMessageCount():
 
 
 def getTodayCovid19Message():
-    date = ""
-    total_count = 0
-    count = 0
-    return F"日期：{date}, 人數：{count}, 確診總人數：{total_count}"
+    response = request.get("https://covid-19.nchc.org.tw/api/covid19?CK=covid-19@nchc.org.tw&querydata=3001&limited=BGD", header=HEADER)
+    data = response.json()[0]
+    date = data["a04"]
+    total_count = data["a05"]
+    count = data["a06"]
+    return F"日期：{date}, 新增確診數：{count}, 確診總人數：{total_count}"
 
 
 def allowed_file(filename):
