@@ -407,10 +407,11 @@ def line_login():
     if request.method == 'GET':
         code = request.args.get("code", None)
         state = request.args.get("state", None)
-
         if code and state:
             HEADERS = {'Content-Type': 'application/x-www-form-urlencoded'}
             url = "https://api.line.me/oauth2/v2.1/token"
+            print("code:",code)
+            print("state:",state)
             FormData = {"grant_type": 'authorization_code', "code": code, "redirect_uri": F"{end_point}/line_login", "client_id": line_login_id, "client_secret":line_login_secret}
             data = parse.urlencode(FormData)
             content = requests.post(url=url, headers=HEADERS, data=data).text
