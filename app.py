@@ -415,6 +415,7 @@ def line_login():
             data = parse.urlencode(FormData)
             content = requests.post(url=url, headers=HEADERS, data=data).text
             content = json.loads(content)
+            print(content)
             url = "https://api.line.me/v2/profile"
             HEADERS = {'Authorization': content["token_type"]+" "+content["access_token"]}
             content = requests.get(url=url, headers=HEADERS).text
