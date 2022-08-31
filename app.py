@@ -173,13 +173,14 @@ def getNameEmojiMessage():
     message = dict()
     message["type"] = "text"
     message["text"] = "".join("$" for r in range(len(name)))
+    # message["text"] = "$" * len(name)
     emojis_list = list()
     for idx, nChar in enumerate(name):
         emojis_list.append(
             {
             "index": idx, 
             "productId": productId,
-            "emojiId": f"{lookUpStr.index(nChar) + 1 :03}"
+            "emojiId": f"{lookUpStr.index(nChar) + 1 :03}"  # emojiId限制為3位數字
             }
         )
     message["emojis"] = emojis_list
@@ -229,6 +230,7 @@ def getPlayStickerMessage():
     return message
 
 """
+Line sitcker格式:
 {
   "type": "sticker",
   "packageId": "446",
@@ -238,12 +240,23 @@ def getPlayStickerMessage():
 
 
 def getTaipei101LocationMessage():
-    message = dict()
+    message = {
+                "type": "location",
+                "title": "Taipei 101",
+                "address": "No.7, Taipei 101 Tower, Sec. 5, Xinyi Rd., Xinyi Dist., Taipei City 110, Taiwan (R.O.C.)",
+                "latitude": 25.0341222,
+                "longitude": 121.5618325
+                }
     return message
 
 
 def getMRTVideoMessage():
-    message = dict()
+    message = {
+                "type": "video",
+                "originalContentUrl": F"{end_point}/static/taipei_101_video.mp4",
+                "previewImageUrl": F"{end_point}/static/taipei_101.jpeg",
+                "trackingId": "track-id"
+                }
     return message
 
 
@@ -264,7 +277,11 @@ def getTaipei101ImageMessage(originalContentUrl=F"{end_point}/static/taipei_101.
 
 
 def getImageMessage(originalContentUrl):
-    message = dict()
+    message = {
+                "type": "image",
+                "originalContentUrl": F"{end_point}/static/taipei_101.jpeg",
+                "previewImageUrl": F"{end_point}/static/taipei_1.jpeg"
+                }
     return message
 
 
